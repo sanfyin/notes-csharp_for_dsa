@@ -1,0 +1,225 @@
+\section{String Handling in C\#}
+
+In C\#, a string is a built in and primitive data type. The primitive data type string maps to the System.String class. The objects of the String
+class (or string) are immutable by nature. By immutable it means that the state of the object can not be changed by
+any operation. This is the reason why when we call the ToUpper() method on string, it doesn’t change the original
+string but creates and returns a new string object that is the upper case representation of the original object. The
+mutable version of string in the .Net Platform is System.Text.StringBuilder class. The objects of this class are
+mutable, that is, their state can be changed by their operations. Hence, if you call the Append() method on a
+StringBuilder class object, the new string will be appended to (added to the end of) the original object. Let’s now
+discuss the two classes one by one.\\
+
+\textbf{The string class and its members}\\
+
+We have been using the string class since our first lesson in the C\# school. We have also seen some of its properties
+(like Length) and methods (like Equals()) in previous lessons. Here, we will describe some of the common
+properties and methods of the String class and then demonstrate their use in code.
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Property or Method & Description \\
+    \hline
+    Length & Gets the number of characters the String object contains.\\
+    CompareTo(string s) & Compares this instance of the string with the supplied string s and returns an
+    integer on the pattern of the IComparable interface.\\
+    Compare(string s1, string s2) & This is a static method and compares the two supplied strings on the pattern of
+    the IComparable interface.\\
+    Equals(string s) & Returns true if the supplied string is exactly the same as this string, else returns
+    false.\\
+    Concat(string s) & Returns a new string that is the concatenation (addition) of this and the supplied
+    string s.\\
+    Insert(int index, string s) & Returns a new string by inserting the supplied string s at the specified index of
+    this string.\\
+    Copy(string s) & This static method returns a new string that is the copy of the supplied string.\\
+    Intern(string s) & This static method returns the system’s reference to the supplied string.\\
+    StartsWith(string s) & Returns true if this string starts with the supplied string s.\\
+    EndsWith(string s) & Returns true if this string ends with the supplied string s.\\
+    IndexOf(string s)
+
+    IndexOf(char ch)&
+    Returns the zero based index of the first occurrence of the supplied string s or
+    supplied character ch. This method is overloaded and more versions are
+    available.\\
+    LastIndexOf(string s)
+
+    LastIndexOf(char ch)&
+    Returns the zero based index of the last occurrence of the supplied string s or
+    supplied character ch. This method is overloaded and more versions are
+    available.\\
+    Replace(char, char)
+
+    Replace(string, string) &
+    Returns a new string by replacing all occurrences of the first char with the
+    second char (or first string with the second string).\\
+    Split(params char[]) & Identifies those substrings (in this instance) which are delimited by one or more
+    characters specified in an array, then places the substrings into a String array and
+    returns it.\\
+    Substring(int i1)
+
+    Substring(int i2, int i3) &
+    Retrieves a substring of this string starting from the index position i1 till the end
+    in the first overloaded form. In the second overloaded form, it retrieves the
+    substring starting from the index i2 and which has a length of i3 characters.\\
+    ToCharArray() & Returns an array of characters of this string.\\
+    ToUpper() & Returns a copy of this string in uppercase.\\
+    ToLower() & Returns a copy of this string in lowercase.\\
+    Trim() & Returns a new string by removing all occurrences of a set of specified characters
+    from the beginning and at end of this instance.\\
+    TrimStart() & Returns a new string by removing all occurrences of a set of specified characters
+    from the beginning of this instance.\\
+    TrimEnd() & Returns a new string by removing all occurrences of a set of specified characters
+    from the end of this instance.\\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+In the following program we have demonstrated the use of most of the above methods of the string class. The
+program is quite self-explanatory and only includes the method calls and their results.
+
+\begin{lstlisting}
+    using System;
+    namespace CSharpSchool
+    {
+        class Test
+        {
+            static void Main()
+            {
+                string s1 = "sanfy";
+                string s2 = "sfy";
+                string s3 = "sanfyin";
+                string s4 = "C# is a great programming language!";
+                string s5 = " This is the target text ";
+                Console.WriteLine("Length of {0} is {1}", s1, s1.Length);
+                Console.WriteLine("Comparision result for {0} with {1} is {2}", s1, s2, s1.CompareTo(s2));
+                Console.WriteLine("Equality checking of {0} with {1} returns {2}", s1, s3, s1.Equals(s3));
+                Console.WriteLine("Equality checking of {0} with lowercase {1} ({2}) returns {3}",
+                s1, s3, s3.ToLower(), s1.Equals(s3.ToLower()));
+                Console.WriteLine("The index of a in {0} is {1}", s3, s3.IndexOf('a'));
+                Console.WriteLine("The last index of a in {0} is {1}", s3, s3.LastIndexOf('a'));
+                Console.WriteLine("The individual words of `{0}' are", s4);
+                string []words = s4.Split(' ');
+                foreach(string word in words)
+                {
+                    Console.WriteLine("\t {0}", word);
+                }
+                Console.WriteLine("\nThe substring of \n\t`{0}' \nfrom index 3 of length 10 is \n\t`{1}'",
+                s4, s4.Substring(3, 10));
+                
+                Console.WriteLine("\nThe string \n\t`{0}'\nafter trimming is \n\t`{1}'", s5, s5.Trim());
+            }
+        }
+    }    
+\end{lstlisting}
+
+The output of the program will certainly help you understand the behavior of each member.
+
+
+\begin{lstlisting}
+    Length of sanfy is 5
+    Comparison result for sanfy with snfy is -1
+    Equality checking of sanfy with Sanfy returns False
+    Equality checking of faraz with lowercase Faraz (faraz) returns True
+    The index of a in Faraz is 1
+    The last index of a in Faraz is 3
+    The individual words of `C# is a great programming language!' are
+    C#
+    is
+    a
+    great
+    programming
+    language!
+    The substring of
+    `C# is a great programming language!'
+    from index 3 of length 10 is
+    `is a great'
+    The string
+    ` This is the target text '
+    after trimming is
+    `This is the target text'       
+\end{lstlisting}
+
+\textbf{The StringBuilder class}\\
+
+The System.Text.StringBuilder class is very similar to the System.String class with the difference that it is
+mutable; that is, the internal state of its objects can be modified by its operations. Unlike in the string class, you
+must first call the constructor of a StringBuilder to instantiate its object.
+
+\begin{lstlisting}
+    string s = "This is held by string";
+    StringBuilder sb = new StringBuilder("This is held by StringBuilder");        
+\end{lstlisting}
+
+
+StringBuilder is somewhat similar to ArrayList and other collections in the way that it grows automatically as the
+size of the string it contains changes. Hence, the Capacity of a StringBuilder may be different from its Length.
+Some of the more common properties and methods of the StringBuilder class are listed in the following table:
+
+\begin{center}
+    \begin{tabular}{ | m{10em} | m{10cm} | } 
+    \hline
+    Property or Method & Description \\
+    \hline
+    Length & Gets the number of characters that the StringBuilder object contains.\\
+    Capacity & Gets the current capacity of the StringBuilder object.\\
+    Append() & Appends the string representation of the specified object at the end of this
+    StringBuilder instance. The method has a number of overloaded forms.\\
+    Insert() & Inserts the string representation of the specified object at the specified index of
+    this StringBuilder object.\\
+    Replace(char, char)
+
+    Replace(string, string) & 
+    Replaces all occurrences of the first supplied character (or string) with the
+    second supplied character (or string) in this StringBuilder object.\\
+    Remove(int st, int length) & Removes all characters from the index position st of specified length in the
+    current StringBuilder object.\\
+    Equals(StringBuilder) & Checks the supplied StringBuilder object with this instance and returns true if
+    both are identical; otherwise, it returns false.\\
+    \hline
+    \end{tabular}
+\end{center}
+
+The following program demonstrates the use of some of these methods:
+
+\begin{lstlisting}
+    using System;
+    using System.Text;
+    namespace CSharpSchool
+    {
+        class Test
+        {
+            static void Main()
+            {
+                StringBuilder sb = new StringBuilder("The text");
+                string s = " is complete";
+                Console.WriteLine("Length of StringBuilder `{0}' is {1}", sb, sb.Length);
+                Console.WriteLine("Capacity of StringBuilder `{0}' is {1}", sb, sb.Capacity);
+                Console.WriteLine("\nStringBuilder before appending is `{0}'", sb);
+                Console.WriteLine("StringBuilder after appending `{0}' is `{1}'", s, sb.Append(s));
+                Console.WriteLine("\nStringBuilder after inserting `now' is `{0}'", sb.Insert(11, "
+                now"));
+                Console.WriteLine("\nStringBuilder after removing 'is ' is `{0}'", sb.Remove(8, 3));
+                Console.WriteLine("\nStringBuilder after replacing all `e' with `x' is {0}",
+                sb.Replace('e', 'x'));
+            }
+        }
+    }
+        
+\end{lstlisting}
+
+
+And the output of the program is:
+
+\begin{lstlisting}
+    Length of StringBuilder `The text' is 8
+    Capacity of StringBuilder `The text' is 16
+    StringBuilder before appending is `The text'
+    StringBuilder after appending ` is complete' is `The text is complete'
+    StringBuilder after inserting `now' is `The text is now complete'
+    StringBuilder after removing 'is ' is `The text now complete'
+    StringBuilder after replacing all `e' with `x' is Thx txxt now complxtx        
+\end{lstlisting}
+
+Note that in all cases, the original object of the StringBuilder is getting modified, hence StringBuilder objects are
+mutable compared to the immutable String objects.

@@ -1,0 +1,69 @@
+\section{Variables}
+During the execution of a program, data is temporarily stored in memory. A variable is the name given to a
+memory location holding a particular type of data. So, each variable has associated with it a data type and a value.
+
+In C\#, variables are declared as:\\
+
+\colorbox{lightgray}{<data type> <variable>;}\\
+
+e.g.,\\
+\colorbox{lightgray}{int i;}\\
+
+
+The above line will reserve an area of 4 bytes in memory to store an integer type values, which will be referred to
+in the rest of program by the identifier ’i’. You can initialize the variable as you declare it (on the fly) and can also
+declare/initialize multiple variables of the same type in a single statement, e.g.,
+
+\colorbox{lightgray}{bool isReady = true;}\\
+\colorbox{lightgray}{float percentage = 87.88, average = 43.9;}\\
+\colorbox{lightgray}{char digit = '7';}\\
+
+In C\# (like other modern languages), you must declare variables before using them. Also, there is the concept of
+"Definite Assignment" in C\# which says "local variables (variables defined in a method) must be initialized before
+being used". The following program won’t compile:
+
+\begin{lstlisting}
+    static void Main()
+    {
+        int age;
+        // age = 18;
+        Console.WriteLine(age); // error
+    }
+    
+\end{lstlisting}
+
+But, if you un-comment the 2nd line, the program will compile. C\# does not assign default values to local
+variables. C\# is also a type safe language, i.e., values of particular data type can only be stored in their respective
+(or compatible) data type. You can’t store integer values in Boolean data types like we used to do in C/C++.
+
+
+\textbf{Constant Variables or Symbols}
+
+Constants are variables whose values, once defined, can not be changed by the program. Constant variables are
+declared using the const keyword, like:\\
+
+\colorbox{lightgray}{const double PI = 3.142;}\\
+
+
+Constant variables must be initialized as they are declared. It is a syntax error to write:
+
+\colorbox{lightgray}{const int MARKS;}\\
+
+It is conventional to use capital letters when naming constant variables.
+
+\textbf{Naming Conventions for variables and methods}
+
+Microsoft suggests using Camel case Notation (first letter in lowercase) for variables and Pascal Notation (first letter in
+uppercase) for methods. Each word after the first word in the name of both variables and methods should start with
+a capital letter. For example, variable names following Camel notation could be:
+
+salary totalSalary
+myMathsMarks isPaid
+
+Some typical names of method following Pascal Notation are
+
+GetTotal() Start()
+WriteLine() LastIndexOf()
+
+Although it is not mandatory to follow this convention, it is highly recommended that you strictly follow the
+convention.

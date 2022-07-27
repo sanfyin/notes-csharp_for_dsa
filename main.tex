@@ -1,0 +1,52 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%Book by C. Has%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt,a4paper]{book}
+\include{preamble}
+
+%=======================================================================
+\begin{document}
+	
+%%frontmatter:  half title, frontispiece, title page, colophon (copyright page), dedication, toc, preface, acknowledgements
+\frontmatter
+\pagestyle{empty}
+\singlespacing
+	
+\include{frontmatter/title}
+\include{frontmatter/colophon}
+\include{frontmatter/dedication}
+	
+\pagestyle{plain}
+\onehalfspacing
+	
+\include{frontmatter/preface}
+\tableofcontents
+
+%==========================================================================	
+%%mainmatter: parts and chapters
+\mainmatter
+\pagestyle{fancy}
+\onehalfspacing
+
+\include{mainmatter/Introduction/Introduction.tex}
+\include{mainmatter/language-fundamentals/language-fundamentals.tex}
+\include{mainmatter/dsa-specific/dsa-specific.tex}
+	
+%==========================================================================	
+%backmatter: appendix, bibliography, index, postface
+\backmatter
+\pagestyle{fancy}
+\singlespacing
+	
+
+\cleardoublepage
+\printindex
+
+\onehalfspacing
+\include{backmatter/postface}
+
+%========================================================================
+%%front cover, spline, and back cover
+	
+\end{document}
+
+%*************************************************************************
+

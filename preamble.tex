@@ -1,0 +1,127 @@
+%Important packages
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[top=1in,bottom=1in,left=3.2cm,right=2.6cm]{geometry}
+\usepackage{graphicx}\graphicspath{{image/}}
+\usepackage{subcaption}
+\usepackage{setspace}
+\usepackage[square,sort&compress]{natbib}
+\usepackage{listings}
+\usepackage[utf8x]{inputenc}
+
+\usepackage{fancyhdr}\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.~#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\fancyhf{}
+\fancyhead[RE, LO]{\thepage}
+\fancyhead[LE]{\nouppercase{\leftmark}}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+\renewcommand{\headrulewidth}{1pt}
+
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{makeidx}\makeindex
+\usepackage[nottoc]{tocbibind}
+\usepackage{emptypage}
+\usepackage[grey]{quotchap}
+\usepackage{hyperref}
+
+\usepackage{enumitem}
+
+
+\setlength\parindent{0pt}
+\usepackage{array}
+
+\usepackage{color}
+\usepackage{cascadia-code}
+\usepackage{listings}
+
+%Color scheme in Visual Studio darkmode
+\definecolor{black}{cmyk}{0,0,0,1}             
+\definecolor{white}{cmyk}{0,0,0,0}
+\definecolor{darkgrey}{cmyk}{0,0,0,0.97}      %background in Visual Studio
+\definecolor{green}{cmyk}{0.6,0,0.84,0}       %comments in Visual Studio
+\definecolor{blue}{cmyk}{0.65,0.33,0,0.05}       %keywords in Visual Studio
+\definecolor{rose}{cmyk}{0,0.26,0.38,0}       %strings in Visual Studio
+\definecolor{lavender}{cmyk}{0,0.42,0,0.1}   %if/else,switch/case etc. in Visual Studio
+\definecolor{lightblue}{cmyk}{0.35,0,0,0}     %local variables in Visual Studio
+\definecolor{aqua}{cmyk}{0.65,0,0.23,0}       %class types in Visual Studio
+\definecolor{lightgreen}{cmyk}{0.12,0,0.33,0.05} %enumerations and methods in Visual Studio
+
+\lstset{
+language=[Sharp]C,
+numbers=left, 
+numberstyle=\tiny\color{black}, 
+rulesep=10pt,
+xleftmargin=12pt,
+framexleftmargin=-2pt,
+framexrightmargin=-5pt,
+showtabs=false,
+showspaces=false,
+showstringspaces=true,
+breaklines=true,
+breakatwhitespace=true,
+backgroundcolor=\color{darkgrey},
+rulecolor=\color{darkgrey},
+commentstyle=\color{green},
+morecomment=[s][\color{green}]{/*+}{*/},
+morecomment=[s][\color{green}]{/*-}{*/},
+basicstyle=\ttfamily\footnotesize\color{white},
+stringstyle=\color{rose},
+frame=trbl,
+framesep=5pt,
+numbersep=7pt,
+belowcaptionskip=1\baselineskip,
+%**********************
+%ADD YOUR KEYWORDS HERE
+%**********************
+%-------------------------------------------
+%keywords like string, int, false, true ...
+keywordstyle=\color{blue},
+morekeywords={partial, var, value, get, set},
+%-------------------------------------------
+%keywords like if/else, switch/cas ...
+emphstyle=\color{lavender},
+emph={if, else, return, throw, switch, case},
+%-------------------------------------------
+%Collection of your local and global variables
+emphstyle={[2]\color{lightblue}},
+emph={[2]someLocalVariable, someGlobalVariable},
+%-------------------------------------------
+%Collection of your class types
+emphstyle={[3]\color{aqua}},
+emph={[3]SomeOwnClassType},
+%-------------------------------------------
+%Collection of your methods
+emphstyle={[4]\color{lightgreen}},
+emph={[4]ToLower},
+}
+
+%Optional
+%Define a new floating environment to be able to generate an own list of codes in the document
+\usepackage{newfloat}
+\DeclareFloatingEnvironment[fileext=frm,placement={!ht},name=Codeexample]{myCode}
+
+\definecolorset{rgb/hsb/cmyk/gray}{}{}%
+ {red,1,0,0/0,1,1/0,1,1,0/.3;%
+  green,0,1,0/.33333,1,1/1,0,1,0/.59;%
+  blue,0,0,1/.66667,1,1/1,1,0,0/.11;%
+  brown,.75,.5,.25/.083333,.66667,.75/0,.25,.5,.25/.5475;%
+  lime,.75,1,0/.20833,1,1/.25,0,1,0/.815;%
+  orange,1,.5,0/.083333,1,1/0,.5,1,0/.595;%
+  pink,1,.75,.75/0,.25,1/0,.25,.25,0/.825;%
+  purple,.75,0,.25/.94444,1,.75/0,.75,.5,.25/.2525;%
+  teal,0,.5,.5/.5,1,.5/.5,0,0,.5/.35;%
+  violet,.5,0,.5/.83333,1,.5/0,.5,0,.5/.205}%
+\definecolorset{cmyk/rgb/hsb/gray}{}{}%
+ {cyan,1,0,0,0/0,1,1/.5,1,1/.7;%
+  magenta,0,1,0,0/1,0,1/.83333,1,1/.41;%
+  yellow,0,0,1,0/1,1,0/.16667,1,1/.89;%
+  olive,0,0,1,.5/.5,.5,0/.16667,1,.5/.39}
+\definecolorset{gray/rgb/hsb/cmyk}{}{}%
+ {black,0/0,0,0/0,0,0/0,0,0,1;%
+  darkgray,.25/.25,.25,.25/0,0,.25/0,0,0,.75;%
+  gray,.5/.5,.5,.5/0,0,.5/0,0,0,.5;%
+  lightgray,.75/.75,.75,.75/0,0,.75/0,0,0,.25;%
+  white,1/1,1,1/0,0,1/0,0,0,0}

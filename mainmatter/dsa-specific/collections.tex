@@ -1,0 +1,562 @@
+\section{Collections}
+
+Although we can make collections of related objects using arrays, there are some limitations when using arrays for
+collections. The size of an array is always fixed and must be defined at the time of instantiation of an array.
+Secondly, an array can only contain objects of the same data type, which we need to define at the time of its
+instantiation. Also, an array does not impose any particular mechanism for inserting and retrieving the elements of
+a collection. For this purpose, the creators of C\# and the .Net Framework Class Library (FCL) have provided a
+number of classes to serve as a collection of different types. These classes are present in the System.Collections
+namespace.\\
+
+Some of the most common classes from this namespace are:
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Class & Description \\
+    \hline
+    ArrayList & Provides a collection similar to an array, but that grows dynamically as the number of
+    elements change.\\
+    Stack & A collection that works on the Last In First Out (LIFO) principle, i.e., the last item inserted is
+    the first item removed from the collection.\\
+    Queue & A collection that works on the First In First Out (FIFO) principle, i.e., the first item inserted
+    is the first item removed from the collection.\\
+    HashTable & Provides a collection of key-value pairs that are organized based on the hash code of the key.\\
+    SortedList & Provides a collection of key-value pairs where the items are sorted according to the key. The
+    items are accessible by both the keys and the index.\\
+    \hline
+    \end{tabular}
+\end{center}
+
+All of the above classes implement the ICollection interface, which contains three properties and one method:
+
+\begin{itemize}
+    \item The Count property returns the number of elements in the collection (similar to the Length property of an
+    Array)
+    \item The IsSynchronized property returns a boolean value depending on whether access to the collection is
+    thread-safe or not
+    \item The SyncRoot property returns an object that can be used to synchronize access to the collection.
+    \item The CopyTo(Array array, int index) method copies the elements of the collection to the array, starting
+    from the specified index.
+    \item All the collection classes also implement the IEnumerable interface, so they can be iterated over using the foreach
+    loop.     
+\end{itemize}
+
+
+\textbf{The ArrayList class}\\
+
+The System.Collections.ArrayList class is similar to arrays, but can store elements of any data type. We don’t need
+to specify the size of the collection when using an ArrayList (as we used to do in the case of simple arrays). The
+size of the ArrayList grows dynamically as the number of elements it contains changes. An ArrayList uses an array
+internally and initializes its size with a default value called Capacity. As the number of elements increase or
+decrease, ArrayList adjusts the capacity of the array accordingly by making a new array and copying the old values
+into it. The Size of the ArrayList is the total number of elements that are actually present in it while the Capacity is
+the number of elements the ArrayList can hold without instantiating a new array. An ArrayList can be constructed
+like this:
+
+\begin{lstlisting}
+    ArrayList list = new ArrayList();    
+\end{lstlisting}
+
+We can also specify the initial Capacity of the ArrayList by passing an integer value to the constructor:
+
+\begin{lstlisting}
+    ArrayList list = new ArrayList(20);    
+\end{lstlisting}
+
+We can also create an ArrayList with some other collection by passing the collection in the constructor:
+
+\begin{lstlisting}
+    ArrayList list = new ArrayList(someCollection);    
+\end{lstlisting}
+
+We add elements to the ArrayList by using its Add() method. The Add() method takes an object of type object as
+its parameter.
+
+\begin{lstlisting}
+    list.Add(45);
+    list.Add(87);
+    list.Add(12);        
+\end{lstlisting}
+
+This will add the three numbers to the ArrayList. Now, we can iterate through the items in the ArrayList (list) using
+a foreach loop:
+
+\begin{lstlisting}
+    static void Main()
+    {
+        ArrayList list = new ArrayList();
+        list.Add(45);
+        list.Add(87);
+        list.Add(12);
+        foreach(int num in list)
+        {
+            Console.WriteLine(num);
+        }
+    }    
+\end{lstlisting}
+
+which will print out the elements in the ArrayList as
+
+\begin{lstlisting}
+    45
+    87
+    12    
+\end{lstlisting}
+
+
+The ArrayList class has also implemented the indexer property (or index operator) which allow its elements to be
+accessed using the [] operators, just as you do with a simple array (we will see how to implement indexers in the
+next lesson). The following code is similar to the above code but uses the indexers to access the elements of the
+ArrayList.
+
+\begin{lstlisting}
+    static void Main()
+    {
+        ArrayList list = new ArrayList();
+        list.Add(45);
+        list.Add(87);
+        list.Add(12);
+        for(int i=0; i<list.Count; i++)
+        {
+            Console.WriteLine(list[i]);
+        }
+    }    
+\end{lstlisting}
+
+The output of the code will be similar to the one presented previously. The above code uses the property Count to
+find the current number of elements in the ArrayList. Recall that ArrayList inherits this property (Count) from its
+parent interface ICollection.\\
+
+A list of some other important properties and methods of the ArrayList class is presented in the following table:
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Property or Method & Description \\
+    \hline
+    Capacity & Gets or sets the number of elements the ArrayList can contain.\\
+    Count & Gets the exact number of elements in the ArrayList.\\
+    Add(object) & Adds an element at the end of an ArrayList.\\
+    Remove(object) & Removes an element from the ArrayList.\\
+    RemoveAt(int) & Removes an element at the specified index from the ArrayList.\\
+    Insert(int, object) & Inserts an object in the ArrayList at the specified index.\\
+    Clear() & Removes all the elements from the ArrayList\\
+    Contains(object) & Returns a boolean value indicating whether the ArrayList contains the supplied
+    element or not.\\
+    CopyTo() & Copies the elements of the ArrayList to the array supplied as a parameter. This method
+    is overloaded and one can specify the range to be copied and also from which index of
+    the array copy should start.\\
+    IndexOf(object) & Returns the zero based index of the first occurrence of the object in the ArrayList. If
+    the object is not found in the ArrayList, it returns -1.\\
+    LastIndexOf(object) & Returns the zero based index of the last occurrence of the object in the ArrayList.\\
+    ToArray() & Returns an array of type object that contains all the elements of the ArrayList.\\
+    TrimToSize() & Sets the capacity to the actual number of elements in the ArrayList.\\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+\textbf{The Stack class}\\
+
+The System.Collections.Stack class is a kind of collection that provides controlled access to its elements. A stack
+works on the principle of Last In First Out (LIFO), which means that the last item inserted into the stack will be the
+first item to be removed from it. Stacks and Queues are very common data structures in computer science and they
+are implemented in both hardware and software. The insertion of an item onto the stack is termed as a ’Push’ while
+removing an item from the stack is called a ’Pop’. If the item is not removed but only read from the top of the stack,
+then this is called a ’Peek’ operation. The System.Collections.Stack class provides the functionality of a Stack in
+the .Net environment. The Stack class can be instantiated in a manner similar to the one we used for the ArrayList.
+
+
+\begin{lstlisting}
+    Stack stack = new Stack();    
+\end{lstlisting}
+
+The above (default) constructor will initialize a new empty stack. The following constructor call will initialize the
+stack with the supplied initial capacity:
+
+\begin{lstlisting}
+    Stack stack = new Stack(12);    
+\end{lstlisting}
+
+While the following constructor will initialize the Stack with the supplied collection:
+
+\begin{lstlisting}
+    Stack stack = new Stack(myCollection);
+\end{lstlisting}
+
+Now, we can push elements onto the Stack using the Push() method, like this:
+
+\begin{lstlisting}
+    stack.Push(2);
+    stack.Push(4);
+    stack.Push(6);    
+\end{lstlisting}
+
+In a similar manner, we can retrieve elements from the stack using the Pop() method. A complete program that
+pushes 3 elements onto the stack and then pops them off one by one is presented below:
+
+\begin{lstlisting}
+    using System;
+    using System.Collections;
+    namespace CSharpSchool
+    {
+        class Test
+        {
+            static void Main()
+            {
+                Stack stack = new Stack();
+                stack.Push(2);
+                stack.Push(4);
+                stack.Push(6);
+                while(stack.Count != 0)
+                {
+                    Console.WriteLine(stack.Pop());
+                }
+            }
+        }
+    }    
+\end{lstlisting}
+
+Note that we have used a while() loop here to iterate through the elements of the stack. One thing to remember in
+the case of a stack is that the Pop() operation not only returns the element at the top of stack, but also removes the
+top element so the Count value will decrease with each Pop() operation. The output of the above program will be:
+
+\begin{lstlisting}
+    6
+    4
+    2        
+\end{lstlisting}
+
+The other methods in the Stack class are very similar to those of an ArrayList except for the Peek() method. The
+Peek() method returns the top element of the stack without removing it. The following program demonstrates the
+use of the Peek() operation.
+
+\begin{lstlisting}
+    static void Main()
+    {
+        Stack stack = new Stack();
+        stack.Push(2);
+        stack.Push(4);
+        stack.Push(6);
+        Console.WriteLine("The total number of elements on the stack before Peek() = {0}", stack.Count);
+        Console.WriteLine("The top element of stack is {0}",
+        stack.Peek());
+        Console.WriteLine("The total number of elements on the stack after Peek() = {0}", stack.Count);
+    }    
+\end{lstlisting}
+
+The above program pushes three elements onto the stack and then peeks at the top element on the stack. The
+program prints the number of elements on the stack before and after the Peek() operation. The result of the program
+is:
+
+\begin{lstlisting}
+    The total number of elements on the stack before Peek() = 3
+    The top element of stack is 6
+    The total number of elements on the stack after Peek() = 3    
+\end{lstlisting}
+
+The output of the program shows that Peek() does not affect the number of elements on the stack and does not
+remove the top element, contrary to the Pop() operation.\\
+
+\textbf{The Queue class}\\
+
+A Queue works on the principle of First In First Out (FIFO), which means that the first item inserted into the queue
+will be the first item removed from it. To ’Enqueue’ an item is to insert it into the queue, and removal of an item
+from the queue is termed ’Dequeue’. Like a stack, there is also a Peek operation, where the item is not removed but
+only read from the front of the queue.\\
+
+The System.Collections.Queue class provides the functionality of queues in the .Net environment. The Queue’s
+constructors are similar to those of the ArrayList and the Stack.
+
+\begin{lstlisting}
+    // an empty queue
+    Queue queue = new Queue();
+    // a queue with initial capacity 16
+    Queue queue = new Queue(16);
+    // a queue containing elements from myCollection
+    Queue queue = new Queue(myCollection);    
+\end{lstlisting}
+
+The following program demonstrates the use of Queues in C\#.
+
+\begin{lstlisting}
+    static void Main()
+    {
+        Queue queue = new Queue();
+        queue.Enqueue(2);
+        queue.Enqueue(4);
+        queue.Enqueue(6);
+        while(queue.Count != 0)
+        {
+            Console.WriteLine(queue.Dequeue());
+        }
+    }    
+\end{lstlisting}
+
+The program enqueues three elements into the Queue and then dequeues them using a while loop. The output of the
+program is:
+
+\begin{lstlisting}
+    2
+    4
+    6        
+\end{lstlisting}
+
+The output shows that the queue removes items in the order they were inserted. The other methods of a Queue are
+very similar to those of the ArrayList and Stack classes.\\
+
+\textbf{Dictionaries}\\
+
+Dictionaries are a kind of collection that store items in a key-value pair fashion. Each value in the collection is
+identified by its key. All the keys in the collection are unique and there can not be more than one key with the same
+name. This is similar to the English language dictionary like the Oxford Dictionary where each word (key) has its
+corresponding meaning (value). The two most common types of Dictionaries in the System.Collections namespace
+are the Hashtable and the SortedList.\\
+
+\textbf{The Hashtable class}\\
+
+Hashtable stores items as key-value pairs. Each item (or value) in the hashtable is uniquely identified by its key. A
+hashtable stores the key and its value as an object type. Mostly the string class is used as the key in a hashtable, but
+you can use any other class as a key. However, before selecting a class for the key, be sure to override the Equals()
+and GetHashCode() methods that it inherit from the object class such that:
+
+\begin{itemize}
+    \item Equals() checks for instance equality rather than the default reference equality.
+    \item GetHashCode() returns the same integer for similar instances of the class.
+    \item The values returned by GetHashCode() are evenly distributed between the MinValue and the MaxValue
+    of the Integer type. 
+\end{itemize}
+
+\textbf{Constructing a Hashtable}\\
+
+The string and some of the other classes provided in the Base Class Library do consider these issues, and they are
+very suitable for usage as a key in hashtables or other dictionaries. There are many constructors available to
+instantiate a hashtable. The simplest is:
+
+\begin{lstlisting}
+    Hashtable ht = new Hashtable();    
+\end{lstlisting}
+
+Which is a default no argument constructor. A hashtable can also be constructed by passing in the initial capacity:
+
+\begin{lstlisting}
+    Hashtable ht = new Hashtable(20);    
+\end{lstlisting}
+
+The Hashtable class also contains some other constructors which allow you to initialize the hashtable with some
+other collection or dictionary.\\
+
+\emph{Adding items to a Hashtable}\\
+
+Once you have instantiated a hashtable object, then you can add items to it using its Add() method:
+
+\begin{lstlisting}
+    ht.Add("st01", "Sanfy");
+    ht.Add("sci01", "Newton");
+    ht.Add("sci02", "Einstein");    
+\end{lstlisting}
+
+\emph{Retrieving items from the Hashtable}\\
+
+Here we have inserted three items into the hashtable along with their keys. Any particular item can be retrieved
+using its key:
+
+\begin{lstlisting}
+    Console.WriteLine("Size of Hashtable is {0}", ht.Count);
+    Console.WriteLine("Element with key = st01 is {0}", ht["st01"]);
+    Console.WriteLine("Size of Hashtable is {0}", ht.Count);    
+\end{lstlisting}
+
+Here we have used the indexer ([] operator) to retrieve the value from the hashtable. This way of retrieval does not
+remove the element from the hashtable but just returns the object with the specified key. Therefore, the size before
+and after the retrieval operation is always same (that is 3). The output of the code above is:
+
+\begin{lstlisting}
+    Size of Hashtable is 3
+    Element with key = st01 is Sanfy
+    Size of Hashtable is 3        
+\end{lstlisting}
+
+\emph{Removing a particular item}\\
+
+The elements of the hashtable can be removed by using the Remove() method which takes the key of the item to be
+removed as its argument.
+
+\begin{lstlisting}
+    static void Main()
+    {
+        Hashtable ht = new Hashtable(20);
+        ht.Add("st01", "Faraz");
+        ht.Add("sci01", "Newton");
+        ht.Add("sci02", "Einstein");
+        Console.WriteLine("Size of Hashtable is {0}", ht.Count);
+        Console.WriteLine("Removing element with key = st01");
+        ht.Remove("st01");
+        Console.WriteLine("Size of Hashtable is {0}", ht.Count);
+    }    
+\end{lstlisting}
+
+The output of the program is:
+
+\begin{lstlisting}
+    Size of Hashtable is 3
+    Removing element with key = st01
+    Size of Hashtable is 2        
+\end{lstlisting}
+
+\emph{Getting the collection of keys and values}\\
+
+The collection of all the keys and values in a hashtable can be retrieved using the Keys and Values property, which
+return an ICollection containing all the keys and values respectively. The following program iterates through all
+the keys and values and prints them, using a foreach loop.
+
+\begin{lstlisting}
+    static void Main()
+    {
+        Hashtable ht = new Hashtable(20);
+        ht.Add("st01", "Faraz");
+        ht.Add("sci01", "Newton");
+        ht.Add("sci02", "Einstein");
+        Console.WriteLine("Printing Keys...");
+        foreach(string key in ht.Keys)
+        {
+            Console.WriteLine(key);
+        }
+        Console.WriteLine("\nPrinting Values...");
+        foreach(string Value in ht.Values)
+        {
+            Console.WriteLine(Value);
+        }
+    }   
+\end{lstlisting}
+ 
+The output of the program will be:
+
+\begin{lstlisting}
+    Printing Keys...
+    st01
+    sci02
+    sci01
+    Printing Values...
+    Sanfy
+    Einstein
+    Newton
+\end{lstlisting}
+
+\emph{Checking for the existence of a particular item in a hashtable}\\
+
+You can use the ContainsKey() and the ContainsValue() method to find out whether a particular item with the
+specified key and value exists in the hashtable or not. Both the methods return a boolean value.
+
+\begin{lstlisting}
+    static void Main()
+    {
+        Hashtable ht = new Hashtable(20);
+        ht.Add("st01", "Faraz");
+        ht.Add("sci01", "Newton");
+        ht.Add("sci02", "Einstein");
+        Console.WriteLine(ht.ContainsKey("sci01"));
+        Console.WriteLine(ht.ContainsKey("st00"));
+        Console.WriteLine(ht.ContainsValue("Einstein"));
+    }    
+\end{lstlisting}
+
+The output is:
+
+\begin{lstlisting}
+    True
+    False
+    True    
+\end{lstlisting}
+
+Indicating whether the elements in question exist in the dictionary (hashtable) or not.\\
+
+\textbf{The SortedList class}\\
+
+The sorted list class is similar to the Hashtable, the difference being that the items are sorted according to the key.
+One of the advantages of using a SortedList is that you can get the items in the collection using an integer index,
+just like you can with an array. In the case of SortedList, if you want to use your own class as a key then, in addition
+to the considerations described in Hashtable, you also need to make sure that your class implements the
+IComparable interface.\\
+
+The IComparable interface has only one method: int CompareTo(object obj). This method takes the object type
+argument and returns an integer representing whether the supplied object is equal to, greater than or less than the
+current object.
+
+\begin{itemize}
+    \item A return value of 0 indicates that this object is equal to the supplied obj.
+    \item A return value greater than zero indicates that this object is greater than the supplied obj
+    \item A return value less than zero indicates that this object is less than the supplied obj.
+\end{itemize}
+
+The string class and other primitive data types provide an implementation of this interface and hence can be used
+as keys in a SortedList directly.\\
+
+The SortedList provides similar constructors as provided by the Hashtable and the simplest one is a zero argument
+constructor.
+
+\begin{lstlisting}
+    SortedList sl = new SortedList();    
+\end{lstlisting}
+
+The following table lists some useful properties and methods of the SortedList class
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Property or Method & Description \\
+    \hline
+    Count & Gets the number of elements that the SortedList contains.\\
+    Keys & Returns an ICollection of all the keys in the SortedList.\\
+    Values & Returns an ICollection of all the values in the SortedList.\\
+    Add(object key, object value) & Adds an element (key-value pair) to the SortedList.\\
+    GetKey(int index) & Returns the key at the specified index.\\
+    GetByIndex(int index) & Returns the value at the specified index.\\
+    IndexOfKey(object key) & Returns the zero based index of the specified key.\\
+    IndexOfValue(object value) & Returns the zero based index of the specified value.\\
+    Remove(object key) & Removes the element with the specified key from the SortedList.\\
+    RemoveAt(int) & Removes the element at the specified index from the SortedList.\\
+    Clear() & Removes all the elements from the SortedList.\\
+    ContainsKey(object key) & Returns a boolean value indicating whether the SortedList contains an element
+    with the supplied key.\\
+    ContainsValue(object value) & Returns a boolean value indicating whether the SortedList contains an element
+    with the supplied value.\\
+    \hline
+    \end{tabular}
+\end{center}
+
+The following program demonstrates the use of a SortedList.
+
+\begin{lstlisting}
+    static void Main()
+    {
+        SortedList sl = new SortedList();
+        sl.Add(32, "Java");
+        sl.Add(21, "C#");
+        sl.Add(7, "VB.Net");
+        sl.Add(49, "C++");
+        Console.WriteLine("The items in the sorted order are...");
+        Console.WriteLine("\t Key \t\t Value");
+        Console.WriteLine("\t === \t\t =====");
+        for(int i=0; i<sl.Count; i++)
+        {
+            Console.WriteLine("\t {0} \t\t {1}", sl.GetKey(i), sl.GetByIndex(i));
+        }
+    }    
+\end{lstlisting}
+
+The program stores the names of different programming languages (in string form) using integer keys. Then the for
+loop is used to retrieve the keys and values contained in the SortedList (sl). Since this is a sorted list, the items are
+internally stored in a sorted order and when we retrieve these names by the GetKey() or the GetByIndex() method,
+we get a sorted list of items. The output of the program will be:
+
+\begin{lstlisting}
+    The items in the sorted order are...
+    Key Value
+    == =====
+    7 VB.Net
+    21 C#
+    32 Java
+    49 C++    
+\end{lstlisting}

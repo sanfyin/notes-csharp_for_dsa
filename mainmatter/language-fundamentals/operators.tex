@@ -1,0 +1,283 @@
+\section{Operators}
+\textbf{Arithmetic Operators}\\
+
+Several common arithmetic operators are allowed in C\#.
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Operand & Description \\
+    \hline
+    + & Add\\
+    - & Subtract\\
+    * & Multiply\\
+    / & Divide\\
+    \% & Remainder or modulo\\
+    ++ & Increment by 1\\
+    -- & Decrement by 1\\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+\begin{lstlisting}
+using System;
+namespace Training
+{
+    class Program
+    {
+        // The program shows the use of arithmetic operators
+        // + - * / % ++ --
+        static void Main()
+        {
+            // result of addition, subtraction,
+            // multiplication and modulus operator
+            int sum=0, difference=0, product=0, modulo=0;
+            float quotient=0; // result of division
+            int num1 = 10, num2 = 2; // operand variables
+            sum = num1 + num2;
+            difference = num1 - num2;
+            product = num1 * num2;
+         
+            quotient = num1 / num2;
+            // remainder of 3/2
+            modulo = 3 % num2;
+            Console.WriteLine("num1 = {0}, num2 = {1}", num1, num2);
+            Console.WriteLine();
+            Console.WriteLine ("Sum of {0} and {1} is {2}", num1, num2, sum);
+            Console.WriteLine("Difference of {0} and {1} is {2}", num1, num2, difference);
+            Console.WriteLine("Product of {0} and {1} is {2}", num1, num2, product);
+            Console.WriteLine("Quotient of {0} and {1} is {2}", num1, num2, quotient);
+            Console.WriteLine();
+            Console.WriteLine("Remainder when 3 is divided by {0} is {1}", num2, modulo);
+            num1++; // increment num1 by 1
+            num2--; // decrement num2 by 1
+            Console.WriteLine("num1 = {0}, num2 = {1}", num1, num2);
+        }
+    }
+}
+\end{lstlisting}
+
+Although the program above is quite simple, I would like to discuss some concepts here. In the
+\emph{Console.WriteLine()} method, we have used format-specifiers \{int\} to indicate the position of variables in the
+string.\\
+
+\begin{lstlisting}
+    Console.WriteLine("Sum of {0} and {1} is {2}", num1, num2, sum);
+\end{lstlisting}
+
+
+Here, \{0\}, \{1\} and \{2\} will be replaced by the values of the num1, num2 and sum variables. In {i}, i specifies that
+(i+1)th variable after double quotes will replace it when printed to the Console. Hence, {0} will be replaced by the
+first one, \{1\} will be replaced by the second variable and so on...
+
+Another point to note is that num1++ has the same meaning as:
+
+num1 = num1 + 1;
+
+Or:
+
+num1 += 1;\\
+
+\textbf{Prefix and Postfix notation}\\
+
+Both the ++ and -- operators can be used as prefix or postfix operators. In prefix form:\\
+
+\begin{lstlisting}
+    num1 = 3;
+    num2 = ++num1; // num1 = 4, num2 = 4        
+\end{lstlisting}
+
+The compiler will first increment num1 by 1 and then will assign it to num2. While in postfix form:
+
+\begin{lstlisting}
+    num2 = num1++; // num1 = 4, num2 = 3    
+\end{lstlisting}
+
+
+The compiler will first assign num1 to num2 and then increment num1 by 1.
+
+\textbf{Assignment Operators}\\
+Assignment operators are used to assign values to variables. Common assignment operators in C\# are:
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Operand & Description \\
+    \hline
+    = & Simple assignment\\
+    += & Additive assignment\\
+    -= & Subtractive assignment\\
+    *= & Multiplicative assignment\\
+    /= & Division assignment\\
+    \%= & Modulo assignment\\
+    \hline
+    \end{tabular}
+\end{center}
+
+The equals (=) operator is used to assign a value to an object. Like we have seen
+
+\begin{lstlisting}
+    bool isPaid = false;    
+\end{lstlisting}
+
+assigns the value ’false’ to the isPaid variable of Boolean type. The left hand and right hand side of the equal or any
+other assignment operator must be compatible, otherwise the compiler will complain about a syntax error.
+Sometimes casting is used for type conversion, e.g., to convert and store a value in a variable of type double to a
+variable of type int, we need to apply an integer cast.
+
+\begin{lstlisting}
+    double doubleValue = 4.67;
+    // intValue will be equal to 4
+    int intValue = (int) doubleValue;
+\end{lstlisting}
+
+Of course, when casting there is always a danger of some loss of precision; in the case above, we only got the 4 of
+the original 4.67. Sometimes, the casting may result in strange values:
+
+\begin{lstlisting}
+    int intValue = 32800;
+    short shortValue = (short) intValue;
+    // shortValue would be equal to -32736        
+\end{lstlisting}
+
+Variables of type short can only take values ranging from -32768 to 32767, so the cast above can not assign 32800
+to shortValue. Hence shortValue took the last 16 bits (as a short consists of 16 bits) of the integer 32800, which
+gives the value -32736 (since bit 16, which represents the value 32768 in an int, now represents -32768). If you try
+to cast incompatible types like:
+
+\begin{lstlisting}
+    bool isPaid = false;
+    int intValue = (int) isPaid;        
+\end{lstlisting}
+
+It won’t get compiled and the compiler will generate a syntax error.
+
+\textbf{Relational Operators}
+Relational operators are used for comparison purposes in conditional statements. Common relational operators in
+C\# are:
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Operand & Description \\
+    \hline
+    == & Equality check\\
+    != & Un-equality check\\
+    > & Greater than\\
+    < & Less than\\
+    >= & Greater than or equal to\\
+    <= & Less than or equal to\\
+    \hline
+    \end{tabular}
+\end{center}
+
+Relational operators always result in a Boolean statement; either true or false. For example if we have two
+variables
+
+\begin{lstlisting}
+    int num1 = 5, num2 = 6;    
+\end{lstlisting}
+
+Then:
+
+\begin{lstlisting}
+    num1 == num2 // false
+    num1 != num2 // true
+    num1 > num2 // false
+    num1 < num2 // true
+    num1 <= num2 // true
+    num1 >= num2 // false    
+\end{lstlisting}
+
+Only compatible data types can be compared. It is invalid to compare a bool with an int, so if you have
+
+\begin{lstlisting}
+    int i = 1;
+    bool b = true;    
+\end{lstlisting}
+
+you cannot compare i and b for equality (i==b). Trying to do so will result in a syntax error.
+
+\textbf{Logical and Bitwise Operators}\\
+These operators are used for logical and bitwise calculations. Common logical and bitwise operators in C\# are:
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Operand & Description \\
+    \hline
+    \& & Bitwise AND\\
+    | & Bitwise OR\\
+    \textasciicircum & Bitwise XOR\\
+    ! & Bitwise NOT\\
+    \hline
+    \end{tabular}
+\end{center}
+
+The operators \&, | and \textasciicircum are rarely used in usual programming practice. The NOT operator is used to negate a
+Boolean or bitwise expression like:
+
+\begin{lstlisting}
+    bool b = false;
+    bool bb = !b;
+    // bb would be true        
+\end{lstlisting}
+
+
+Logical Operators \&\& and || are used to combine comparisons like
+
+\begin{lstlisting}
+    int i=6, j=12;
+    bool firstVar = i>3 && j<10;
+    // firstVar would be false
+    bool secondVar = i>3 || j<10;
+    // secondVar would be true        
+\end{lstlisting}
+
+In the first comparison: i>3 \&\& j<10 will result in true only if both the conditions i>3 and j<10 result in true.
+In the second comparison: i>3 || j<10 will result in true if any of the conditions i>3 and j<10 result in true. You
+can, of course, use both \&\& and || in single statement like:
+
+\begin{lstlisting}
+    bool firstVar = (i>3 && j<10) || (i<7 && j>10) // firstVar would be true    
+\end{lstlisting}
+
+
+In the above statement we used parenthesis to group our conditional expressions and to avoid any ambiguity.
+You can use \& and | operators in place of \&\& and || but for combining conditional expressions, \&\& and || are more
+efficient because they use "short circuit evaluation". For example, if in the expression (i>3 \&\& j<10), i>3
+evaluates to false, the second expression j<10 won’t be checked and false will be returned (when using AND, if one
+of the participant operands is false, the whole operation will result in false). Hence, one should be very careful
+when using assignment expressions with \&\& and || operators. The \& and | operators don’t do short circuit
+evaluation and do execute all the comparisons before returning the result.\\
+
+
+\textbf{Other Operators}\\
+There are some other operators present in C\#. A short description of these is given below:
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Operand & Description \\
+    \hline
+    << & Left shift bitwise operator\\
+    >> & Right shift bitwise operator\\
+    . & Member access for objects\\
+    "" & Index operator used in arrays and collections\\
+    () & Cast operator\\
+    ?: & Ternary operator\\
+    \hline
+    \end{tabular}
+\end{center}
+
+\textbf{Operator Precedence}\\
+All operators are not treated equally. There is a concept of "operator precedence" in C\#. For example:
+
+\begin{lstlisting}
+    int i = 2 + 3 * 6;
+    // i would be 20 not 30        
+\end{lstlisting}
+3 will be multiplied by 6 first then the result will be added to 2. This is because the multiplication operator * has
+precedence over the addition operator +. For a complete table of operator precedence, consult MSDN or the .Net
+framework documentation.

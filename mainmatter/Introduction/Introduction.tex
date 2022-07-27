@@ -1,0 +1,121 @@
+\chapter{Introduction}
+
+C\# (pronounced C-Sharp) is an Object Oriented Programming language and it has many similarities to Java, C++ and VB. In fact, C\#
+combines the power and efficiency of C++, the simple and clean OO design of Java and the language simplification of Visual Basic.\\
+
+\textbf{Writing Your First Hello World Program in C\#}
+
+We can use any Text Editor for writting a C\# program. We will use Visual Studio Code for this training.\\
+
+Create a file as Program.cs, write below Code and save the file.
+
+\begin{lstlisting}
+class Program
+{
+    public static void Main(string[] args)
+    {
+        System.Console.WriteLine("Hello World!");
+    }
+}
+\end{lstlisting}
+
+To compile this file, go to command prompt (Windows) or Terminal (Mac) and execute below command:
+
+
+\colorbox{lightgray}{csc Program.cs}
+
+
+This will compile your program and create an .exe file (Program.exe) in the same directory and will
+report any errors that may occur.\\
+
+To run your program, in the command prompt or terminal, type \colorbox{lightgray}{Program} in Windows or \colorbox{lightgray}{mono Program} in Mac.\\
+
+This will print Hello World as a result on your console screen. Simple, isn’t it?\\
+
+
+\textbf{Understanding the Hello World Application Code:}
+
+
+\textbf{The class Keyword}\\
+All of our C\# programs contain at least one class. The Main() method resides in one of these classes. Classes are a
+combination of data (fields) and functions (methods) that can be performed on this data in order to achieve the
+solution to our problem. We will see the concept of class in more detail later. Classes in C\# are
+defined using the class keyword followed by the name of class.\\
+
+\textbf{The Main() Method}\\
+In the next line we defined the Main() method of our program:\\
+
+\colorbox{lightgray}{public static void Main(string[] args)}\\
+
+This is the standard signature of the Main method in C\#. The Main method is the entry point of our program, i.e.,
+our C\# program starts its execution from the first line of Main method and terminates with the termination of Main
+method.\\
+
+\textbf{Printing on the Console}\\
+Our next line prints Hello World on the Console screen:\\
+
+\colorbox{lightgray}{Console.WriteLine("Hello World");}\\
+
+Here we called WriteLine(), a static method of the Console class defined in the System namespace. This method
+takes a string (enclosed in double quotes) as its parameter and prints it on the Console window.
+C\#, like other Object Oriented languages, uses the dot (.) operator to access the member variables (fields) and
+methods of a class. Also, braces () are used to identify methods in the code and string literals are enclosed in double
+quotation marks ("). Lastly, each statement in C\# (like C, C++ and Java) ends with a semicolon (;), also called the
+statement terminator.
+
+
+\textbf{Namespaces in C\#}\\
+A Namespace is simply a logical collection of related classes in C\#. We bundle our related classes in some named collection calling it a namespace. As C\# does
+not allow two classes with the same name to be used in a program, the sole purpose of using namespaces is to
+prevent name conflicts. This may happen when you have a large number of classes, as is the case in the Framework
+Class Library (FCL). It is very much possible that our Connection Class in DataActivity conflicts with the
+Connection Class of InternetActivity. To avoid this, these classes are made part of their respective namespace. So
+the fully qualified name of these classes will be DataActivity.Connection and InternetActivity.Connection, hence
+resolving any ambiguity for the compiler.
+
+We can define the namspace \emph{Training} in our program as below:
+
+\begin{lstlisting}
+
+namespace Training
+{
+    class Program
+    {
+        public static void Main()
+        {
+            System.Console.WriteLine("Hello World!");
+        }
+    }
+}
+\end{lstlisting}
+
+Now we can access Program class and Main method from anywhere in a program as below:
+
+\begin{lstlisting}
+    Training.Program.Main();    
+\end{lstlisting}
+
+
+\textbf{The using Keyword}\\
+
+We can write the namespaces in a using statement at the start of a program as below:
+
+\begin{lstlisting}
+    using System;
+
+    namespace Training
+    {
+        class Program
+        {
+            public static void Main()
+            {
+                Console.WriteLine("Hello World!");
+            }
+        }
+    }
+\end{lstlisting}
+
+The \emph{using} keyword above allows us to use the classes in the ’System’ namespace. By doing this, we can
+now access all the classes defined in the System namespace like we are able to access the Console class in our
+Main method.
+		

@@ -1,0 +1,410 @@
+\section{Flow Control And Conditional Statements}
+
+\textbf{The if...else statement}\\
+Condition checking has always been the most important construct in any language right from the time of the
+assembly language days. C\# provides conditional statements in the form of the if...else statement. The structure of
+this statement is:
+
+if(Boolean expression)\\
+Statement or block of statements\\
+else\\
+Statement or block of statements\\
+
+
+The else clause above is optional. A typical example is:
+
+\begin{lstlisting}
+    if(i==5)
+    {
+        Console.WriteLine("Thank God, I finally became 5.");
+    }
+\end{lstlisting}
+
+In the above example, the console message will be printed only if the expression i==5 evaluates to true. If you
+would like to take some action when the condition does not evaluate to true, then you can use else clause:
+
+\begin{lstlisting}
+    if(i==5)
+    {
+        Console.WriteLine ("Thank God, I finally became 5.");
+    }
+    else
+    {
+        Console.WriteLine("Missed...When will I become 5?");
+    }
+\end{lstlisting}
+
+Only the first message will be printed if i is equal to 5. In any other case (when i is not 5), the second message will
+be printed. \\
+
+You can also have if after else for further conditioning:
+
+\begin{lstlisting}
+    if(i==5) // line 1
+    {
+        Console.WriteLine("Thank God, I finally became 5.");
+    }
+    else if(i==6) // line 5
+    {
+        Console.WriteLine("Ok, 6 is close to 5.");
+    }
+    else // line 9
+    {
+        Console.WriteLine("Missed...When will I become 5 or be close to 5?");
+    }
+\end{lstlisting}
+
+
+Here else if(i==6) is executed only if the first condition i==5 is false, and else at line 9 will be executed only if the
+second condition i==6 (line 5) executes and fails (that is, both the first and second conditions fail). The point here
+is else at line 9 is related to if on line 5.\\
+
+Since if...else is also a statement, you can use it under other if...else statement (nesting), like:
+
+\begin{lstlisting}
+    if(i>5) // line 1
+    {
+        if(i==6) // line 3
+        {
+            Console.WriteLine("Ok, 6 is close to 5.");
+        }
+        else // line 7
+        {
+        Console.WriteLine("Oops! I'm older than 5 but not 6!");
+        }
+        Console.WriteLine("Thank God, I finally became older than 5.");
+    }
+    else // line 13
+    {
+        Console.WriteLine("Missed...When will I become 5 or close to 5?");
+    }
+\end{lstlisting}
+
+The else on line 7 is clearly related to if on line 3 while else on line 13 belongs to if on line 1. Finally, do note
+(C/C++ programmers especially) that if statements expect only Boolean expressions and not integer values. It’s an
+error to write:
+
+\begin{lstlisting}
+    int flag = 0;
+    if(flag = 1)
+    {
+        // do something...
+    }
+\end{lstlisting}
+
+Instead, you can either use:
+
+\begin{lstlisting}
+    int flag = 0;
+    if(flag == 1) // note ==
+    {
+        // do something...
+    }
+\end{lstlisting}
+
+or,
+
+\begin{lstlisting}
+    bool flag = false;
+    if(flag = true) // Boolean expression
+    {
+        // do something...
+    }
+\end{lstlisting}
+
+The keys to avoiding confusion in the use of any complex combination of if...else are aligning the code to enhance readability. If you are using Visual Studio or some other
+editor that supports the language, the editor will do indentation for you. Otherwise, you have to take care of this
+yourself.\\
+
+\textbf{The switch...case statement}\\
+
+If you need to perform a series of specific checks, switch...case is present in C\# just for this. The general structure
+of the switch...case statement is:
+
+\begin{lstlisting}
+    switch(integral or string expression)
+    {
+        case constant-expression:
+        statements
+        breaking or jump statement
+        // some other case blocks
+        ...
+        default:
+        statements
+        breaking or jump statement
+    }    
+\end{lstlisting}
+
+It takes less time to use switch...case than using several if...else if statements. Let’s look at it with an example:
+
+\begin{lstlisting}
+    using System;
+    class SwitchCaseExample
+    {
+        // Demonstrates the use of switch...case statement along with
+        // the use of command line argument
+        static void Main(string [] userInput)
+        {
+            int input = int.Parse(userInput[0]);
+            // convert the string input to integer.
+            // Will throw a run-time exception if there is no input at run-time or if
+            // the input is not castable to integer.
+            switch(input) // what is input?
+            {
+                case 1: // if it is 1
+                Console.WriteLine("You typed 1 (one) as the first command line argument");
+                break; // get out of switch block
+                case 2: // if it is 2
+                Console.WriteLine("You typed 2 (two) as the first command line argument");
+                break; // get out of switch block
+                case 3: // if it is 3
+                Console.WriteLine("You typed 3 (three) as the first command line argument");
+                break; // get out of switch block
+                default: // if it is not any of the above
+                Console.WriteLine("You typed a number other than 1, 2 and 3");
+                break; // get out of switch block
+            }
+        }
+    }    
+\end{lstlisting}
+
+The program must be supplied with an integer command line argument. First, compile the program (at the
+command line or in Visual Studio.Net). Suppose we made an exe with name "SwitchCaseExample.exe", we would
+run it at the command line like this:
+
+Let’s get to internal working. First, we converted the first command line argument (userInput[0]) into an int
+variable input. For conversion, we used the static Parse() method of the int data type. This method takes a string
+and returns the equivalent integer or raises an exception if it can’t. Next we checked the value of input variable
+using a switch statement:
+
+\begin{lstlisting}   
+    switch(input)
+    {
+    ...
+    }    
+\end{lstlisting}
+
+Later, on the basis of the value of input, we took specific actions under respective case statements. Once our case
+specific statements end, we mark it with the break statement before the start of another case (or the default) block.
+
+\begin{lstlisting}
+    case 3: // if it is 3
+    Console.WriteLine("You typed 3 (three) as first command line argument");
+    break; // get out of switch block        
+\end{lstlisting}
+
+If all the specific checks fail (input is none of 1,2 and 3), the statements under default executes.
+
+\begin{lstlisting}
+    default:
+    // if it is not any of the above
+    Console.WriteLine ("You typed a number other than 1, 2 and 3");
+    break; // get out of switch block        
+\end{lstlisting}
+
+There are some important points to remember when using the switch...case statement in C\#:
+
+\begin{itemize}
+    \item You can use either integers (enumeration) or strings in a switch statement
+    \item The expression following case must be constant. It is illegal to use a variable after case:
+    case i: // incorrect, syntax error
+    \item You can use multiple statements under single case and default statements:
+    \item A colon : is used after the case statement and not a semicolon ;
+    case "India":
+    continent = "Asia";
+    Console.WriteLine("India is an Asian Country");
+    break;
+    default:
+    continent = "Un-recognized";
+    Console.WriteLine
+    ("Un-recognized country discovered");
+    break;
+    \item The end of the case and default statements is marked with break (or goto) statement. We don’t use {}
+    brackets to mark the block in switch...case as we usually do in C\#
+    \item C\# does not allow fall-through. So, you can’t leave case or default without break statement (as you can in
+    Java or C/C++). The compiler will detect and complain about the use of fall-through in the switch...case
+    statement.
+    \item The break statement transfers the execution control out of the current block.
+    \item Statements under default will be executed if and only if all the case checks fail.
+    \item It is not necessary to place default at the end of switch...case statement. You can even place the default
+    block before the first case or in between cases; default will work the same regardless of its position.
+    However, making default the last block is conventional and highly recommended. Of course, you can’t
+    have more than one default block in a single switch...case.
+    
+\end{itemize}
+
+
+\textbf{Loops In C\#}\\
+Loops are used for iteration purposes, i.e., doing a task multiple times (usually until a termination condition is met)
+
+\textbf{The for Loop}\\
+The most common type of loop in C\# is the for loop. The basic structure of a for loop is exactly the same as in Java
+and C/C++ and is:
+
+\begin{lstlisting}
+    for(assignment; condition; increment/decrement)
+        statements or block of statements
+        enclosed in {} brackets
+        
+\end{lstlisting}
+
+Let's see a for loop that will write the integers from 1 to 10 to the console:
+
+
+\begin{lstlisting}
+    for(int i=1; i<=10; i++)
+    {
+        Console.WriteLine("In the loop, the value of i is {0}.", i);
+    }    
+\end{lstlisting}
+
+At the start, the integer variable i is initialized with the value of 1. The statements in the for loop are executed while
+the condition (i<=10) remains true. The value of i is incremented (i++) by 1 each time the loop starts.\\
+
+Some important points about the for loop\\
+
+All three statements in for(), assignment, condition and increment/decrement are optional. You can use any
+combination of these and even decide not to use any one at all. This would make what is called and ’Indefinite or
+infinite loop’ (a loop that will never end until or unless the break instruction is encountered inside the body of the
+loop). But, you still have to supply the appropriate semi colons:
+
+\begin{lstlisting}
+    for(; ;)
+    for( ; i<10; i++)
+    for(int i=3; ; i--)
+    for( ; i>5; )        
+\end{lstlisting}
+
+If you don’t use the {} brackets, the statement immediate following for() will be treated as the iteration statement.
+The example below is identical to the one given above:
+
+\begin{lstlisting}
+    for(int i=1; i<=10; i++)
+        Console.WriteLine("In the loop, value of i is {0}.", i);
+        
+\end{lstlisting}
+
+I will again recommend that you always use {} brackets and proper indentation.
+If you declare a variable in for()’s assignment, its life (scope) will only last inside the loop and it will die after the
+loop body terminates (unlike some implementations of C++). Hence if you write:
+
+\begin{lstlisting}
+    for(int i=1; i<=10; i++)
+    {
+        Console.WriteLine("In the loop, value of i is {0}.", i);
+    }
+    i++; // line 1    
+\end{lstlisting}
+
+The compiler will complain at line 1 that "i is an undeclared identifier".
+You can use break and continue in for loops or any other loop to change the normal execution path. break
+terminates the loop and transfers the execution to a point just outside the for loop:
+
+\begin{lstlisting}
+    for(int i=1; i<=10; i++)
+    {
+        if(i>5)
+        {
+            break;
+        }
+        Console.WriteLine("In the loop, value of i is {0}.", i);
+    }    
+\end{lstlisting}
+
+The loop will terminate once the value of i gets greater than 5. If some statements are present after break, break
+must be enclosed under some condition, otherwise the lines following break will become unreachable and the
+compiler will generate a warning (in Java, it’s a syntax error).
+
+\begin{lstlisting}
+    for(int i=3; i<10; i++)
+    {
+        break; // warning, Console.WriteLine (i); is unreachable code
+        Console.WriteLine(i);
+    }    
+\end{lstlisting}
+
+continue ignores the remaining part of the current iteration and starts the next iteration.
+
+\begin{lstlisting}
+    for(int i=1; i<=10; i++)
+    {
+        if(i==5)
+        {
+            continue;
+        }
+        Console.WriteLine("In the loop, value of i is {0}.", i);
+    }    
+\end{lstlisting}
+
+
+Console.WriteLine will be executed for each iteration except when the value of i becomes 5. The sample output of
+the above code is:
+
+\begin{lstlisting}
+    In the loop, value of i is 1.
+    In the loop, value of i is 2.
+    In the loop, value of i is 3.
+    In the loop, value of i is 4.
+    In the loop, value of i is 6.
+    In the loop, value of i is 7.
+    In the loop, value of i is 8.
+    In the loop, value of i is 9.        
+    In the loop, value of i is 10.
+\end{lstlisting}
+
+
+\textbf{The do...while Loop}\\
+
+The general structure of a do...while loop is
+
+\begin{lstlisting}
+    do
+        Statement or block of statements
+    while(boolean expression);
+        
+\end{lstlisting}
+
+The statements under do will execute the first time and then the condition is checked. The loop will continue while
+the condition remains true.\\
+
+The program for printing the integers 1 to 10 to the console using the do...while loop is:
+
+\begin{lstlisting}
+    int i=1;
+    do
+    {
+        Console.WriteLine("In the loop, value of i is {0}.", i);
+        i++;
+    } while(i<=10);
+\end{lstlisting}
+
+Some important points here are:
+
+\begin{itemize}
+    \item The statements in a do...while() loop always execute at least once.
+    \item There is a semicolon ; after the while statement.
+\end{itemize}
+
+\textbf{while Loop}\\
+
+The while loop is similar to the do...while loop, except that it checks the condition before entering the first iteration
+(execution of code inside the body of the loop). The general form of a while loop is:
+
+\begin{lstlisting}
+    while(Boolean expression)
+        statements or block of statements
+        
+\end{lstlisting}
+
+Our program to print the integers 1 to 10 to the console using while will be:
+
+\begin{lstlisting}
+    int i=1;
+    while(i<=10)
+    {
+        Console.WriteLine("In the loop, value of i is {0}.", i);
+        i++;
+    }        
+\end{lstlisting}
+
+

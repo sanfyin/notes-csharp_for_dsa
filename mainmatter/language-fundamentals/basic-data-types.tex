@@ -1,0 +1,40 @@
+\section{Basic Data Types}
+There are two kinds of data types in C\#.
+
+\begin{itemize}
+    \item Value Types (implicit data types, structs and enumeration)
+    \item Reference Types (objects, delegates)  
+\end{itemize}
+
+Value types are passed to methods by passing an exact copy while Reference types are passed to methods by
+passing only their reference (handle). Implicit data types are defined in the language core by the language vendor,
+while explicit data types are types that are made by using or composing implicit data types.
+The commonly used implicit data types in C\# are mentioned below:
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{2cm}| m{10cm} | } 
+    \hline
+    Data Type & Size & Description \\
+    \hline
+    int	    &   4 bytes &	Stores whole numbers from -2,147,483,648 to 2,147,483,647\\
+    long	&	8 bytes	&   Stores whole numbers from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807\\
+    float	&	4 bytes	&   Stores fractional numbers. Sufficient for storing 6 to 7 decimal digits\\
+    double	&	8 bytes	&   Stores fractional numbers. Sufficient for storing 15 decimal digits\\
+    decimal	&	16 bytes&   Stores fractional numbers. Sufficient for storing 28 decimal digits\\
+    bool	&	1 byte	&   Stores true or false values\\
+    char	&	2 bytes	&   Stores a single character/letter, surrounded by single quotes\\
+    string	&	2 bytes per character &	Stores a sequence of characters, surrounded by double quotes\\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+Implicit data types are represented in language using keywords, so each of the above is a keyword in C\#. Keyword
+are the words defined by the language and can not be used as identifiers. It is worth noting that string is also an
+implicit data type in C\#, so string is a keyword in C\#. The last point about implicit data types is that they are value
+types and thus stored on the stack, while user defined types or referenced types are stored using the heap. A stack is
+a data structure that store items in a first in first out (FIFO) fashion. It is an area of memory supported by the
+processor and its size is determined at the compile time. A heap consists of memory available to the program at run
+time. Reference types are allocated using memory available from the heap dynamically (during the execution of
+program). The garbage collector searches for non-referenced data in heap during the execution of program and
+returns that space to Operating System.\\

@@ -1,0 +1,555 @@
+\section{Classes and Objects}
+
+\textbf{Concept of a Class}\\
+
+A class is simply an abstract model used to define a new data types. A class may contain any combination of
+encapsulated data (fields or member variables), operations that can be performed on data (methods) and accessors
+to data (properties). For example, there is a class String in the System namespace of .Net Library. This class contains an array of characters (data) and provide different operations (methods) that can be
+applied to its data like ToLowerCase(), Trim(), Substring(), etc. It also has some properties like Length (used to
+find the length of the string).\\
+
+A class in C\# is declared using the keyword class and its members are enclosed in parenthesis
+
+\begin{lstlisting}
+    class MyClass
+    {
+        // fields, operations and properties go here
+    }    
+\end{lstlisting}
+
+where MyClass is the name of class or new data type that we are defining here.\\
+
+\textbf{Objects}\\
+
+As mentioned above, a class is an abstract model. An object is the concrete realization or instance built on the
+model specified by the class. An object is created in the memory using the keyword ’new’ and is referenced by an
+identifier called a "reference".
+
+\begin{lstlisting}
+    MyClass myObjectReference = new MyClass();    
+\end{lstlisting}
+
+In the line above, we made an object of type MyClass which is referenced by an identifier myObjectReference.
+The difference between classes and implicit data types is that objects are reference types (passed by reference)
+while implicit data types are value type (passed by making a copy). Also, objects are created at the heap while
+implicit data types are stored on stack.\\
+
+\textbf{Fields}\\
+
+Fields are the data contained in the class. Fields may be implicit data types, objects of some other class,
+enumerations, structs or delegates. In the example below, we define a class named Student containing a student’s
+name, age, marks in maths, marks in English, marks in science, total marks, obtained marks and a percentage.
+
+\begin{lstlisting}
+    class Student
+    {
+        // fields contained in Student class
+        string name;
+        int age;
+        int marksInMaths;
+        int marksInEnglish;
+        int marksInScience;
+        int totalMarks = 300; // initialization
+        int obtainedMarks;
+        double percentage;
+    }        
+\end{lstlisting}
+
+You can also initialize the fields with the initial values as we did in totalMarks in the example above. If you don’t
+initialize the members of the class, they will be initialized with their default values.\\
+
+Default values for different data types are shown below:
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Data Type & Default Value \\
+    \hline
+    int & 0\\
+    long & 0\\
+    float & 0.0\\
+    double & 0.0\\
+    bool & False\\
+    char & (null character)\\
+    string & "" (empty string)\\
+    Objects & null\\
+    \hline
+    \end{tabular}
+\end{center}
+
+
+\textbf{Methods}\\
+
+Methods are the operations performed on the data. A method may take some input values through its parameters
+and may return a value of a particular data type. The signature of the method takes the form
+
+\begin{lstlisting}
+    <return type> <name of method>(<data type> <identifier>, <data type> <identifier>,...)
+    {
+        // body of the method
+    }    
+\end{lstlisting}
+
+For example,
+
+\begin{lstlisting}
+    int FindSum(int num1, int num2)
+    {
+        int sum = num1 + num2;
+        return sum;
+    }    
+\end{lstlisting}
+
+Here, we defined a method named FindSum which takes two parameters of int type (num1 and num2) and returns
+a value of type int using the keyword return. If a method does not return anything, its return type would be void. A
+method can also optionally take no parameter (a parameterless method)
+
+\begin{lstlisting}
+    void ShowCurrentTime()
+    {
+        Console.WriteLine("The current time is: " + DateTime.Now);
+    }        
+\end{lstlisting}
+
+The above method takes no parameter and returns nothing. It only prints the Current Date and Time on the console
+using the DateTime Class in the System namespace.\\
+
+\textbf{Instantiating the class}\\
+
+In C\# a class is instantiated (making its objects) using the new keyword.
+
+\begin{lstlisting}
+    Student theStudent = new Student();    
+\end{lstlisting}
+
+You can also declare the reference and assign an object to it in different steps. The following two lines are
+equivalent to the above line
+
+\begin{lstlisting}
+    Student theStudent;
+    theStudent = new Student();        
+\end{lstlisting}
+
+Note that it is very similar to using implicit data types except for the object is created with the new operator while
+implicit data types are created using literals
+
+\begin{lstlisting}
+    int i;
+    i = 4;        
+\end{lstlisting}
+
+Another important thing to understand is the difference between reference and object. The line
+
+\begin{lstlisting}
+    Student theStudent;    
+\end{lstlisting}
+
+only declares the reference theStudent of type Student which at this point does not contain any object (and points to
+the default null value) so if you try to access the members of class (Student) through it, it will throw a compile time
+error ’Use of unassigned variable theStudent’. When we write
+
+\begin{lstlisting}
+    theStudent = new Student();    
+\end{lstlisting}
+
+then a new object of type Student is created at the heap and its reference (or handle) is given to theStudent. Only
+now is it legal to access the members of the class through it.\\
+
+\textbf{Accessing the members of a class}\\
+
+The members of a class (fields, methods and properties) are accessed using dot ’.’ operator against the reference of
+the object like this:
+
+\begin{lstlisting}
+    Student theStudent = new Student();
+    theStudent.marksOfMaths = 93;
+    theStudent.CalculateTotal();
+    Console.WriteLine(theStudent.obtainedMarks);        
+\end{lstlisting}
+
+Let’s now make our Student class with some related fields, methods and then instantiate it in the Main() method.
+
+\begin{lstlisting}
+    using System;
+    namespace CSharpSchool
+    {
+        // Defining a class to store and manipulate students information
+        class Student
+        {
+            // fields
+            string name;
+            int age;
+            int marksOfMaths;
+            int marksOfEnglish;
+            int marksOfScience;
+            int totalMarks = 300;
+            int obtainedMarks;
+            double percentage;
+            // methods
+            void CalculateTotalMarks()
+            {
+                obtainedMarks = marksOfMaths + marksOfEnglish + marksOfScience;
+            }
+            void CalculatePercentage()
+            {
+                percentage = (double) obtainedMarks / totalMarks * 100;
+            }
+            double GetPercentage()
+            {
+                return percentage;
+            }
+            // Main method or entry point of program
+            static void Main()
+            {
+                // creating new instance of Student
+                Student st1 = new Student();
+                // setting the values of fields
+                st1.name = "Einstein";
+                st1.age = 20;
+                st1.marksOfEnglish = 80;
+                st1.marksOfMaths = 99;
+                Programmers Heaven: C# School
+                58
+                st1.marksOfScience = 96;
+                // calling functions
+                st1.CalculateTotalMarks();
+                st1.CalculatePercentage();
+                double st1Percentage = st1.GetPercentage();
+                // calling and retrieving value
+                // returned by the function
+                Student st2 = new Student();
+                st2.name = "Newton";
+                st2.age = 23;
+                st2.marksOfEnglish = 77;
+                st2.marksOfMaths = 100;
+                st2.marksOfScience = 99;
+                st2.CalculateTotalMarks();
+                st2.CalculatePercentage();
+                double st2Percentage = st2.GetPercentage();
+                Console.WriteLine("{0} of {1} years age got {2}% marks", st1.name, st1.age, st1.percentage);
+                Console.WriteLine("{0} of {1} years age got {2}% marks", st2.name, st2.age, st2.percentage);
+            }
+        }
+    }    
+\end{lstlisting}
+
+Here, we started by creating an object of the Student class (st1), we then assigned name, age and marks of the
+student. Later, we called methods to calculate totalMarks and percentage, then we retrieved and stored the
+percentage in a variable and finally printed these on a console window.\\
+
+We repeated the same steps again to create another object of type Student, set and printed its attributes. Hence in
+this way, you can create as many object of the Student class as you want. When you compile and run this program
+it will display:
+
+\begin{lstlisting}
+    Einstein of 20 years age got 91.6666666666667% marks
+    Newton of 23 years age got 92% marks
+\end{lstlisting}
+
+\textbf{Access Modifiers or Accessibility Levels}\\
+
+In our Student class, everyone has access to each of the fields and methods. So if one wants, he/she can change the
+totalMarks from 300 to say 200, resulting in the percentages getting beyond 100\%, which in most cases we like to
+restrict. C\# provides access modifiers or accessibility levels just for this purpose, i.e., restricting access to a
+particular member. There are 5 access modifiers that can be applied to any member of the class. We are listing
+these along with short description in the order of decreasing restriction
+
+\begin{center}
+    \begin{tabular}{ | m{5em} | m{10cm} | } 
+    \hline
+    Access Modifier & Description \\
+    \hline
+    private & private members can only be accessed within the class that contains them\\
+    protected internal & This type of member can be accessed from the current project or from the types inherited
+    from their containing type\\
+    internal & Can only be accessed from the current project\\
+    protected & Can be accessed from a containing class and types inherited from the containing class\\
+    public & public members are not restricted to anyone. Anyone who can see them can also access
+    them.\\
+    \hline
+    \end{tabular}
+\end{center}
+ 
+
+In Object Oriented Programming (OOP) it is always advised and recommended to mark all your fields as private
+and allow the user of your class to access only certain methods by making them public. For example, we may
+change our student class by marking all the fields private and the three methods in the class public.
+
+\begin{lstlisting}
+    class Student
+    {
+        // fields
+        private string name;
+        private int age;
+        private int marksOfMaths;
+        private int marksOfEnglish;
+        private int marksOfScience;
+        private int totalMarks = 300;
+        private int obtainedMarks;
+        private double percentage;
+        // methods
+        public void CalculateTotalMarks()
+        {
+            obtainedMarks = marksOfMaths + marksOfEnglish + marksOfScience;
+        }
+        public void CalculatePercentage()
+        {
+            percentage = (double) obtainedMarks / totalMarks * 100;
+        }
+        public double GetPercentage()
+        {
+            return percentage;
+        }
+    }
+\end{lstlisting}
+
+If you don’t mark any member of class with an access modifier, it will be treated as a private member; this means
+the default access modifier for the members of a class is private.\\
+
+You can also apply access modifiers to other types in C\# such as the class, interface, struct, enum, delegate and
+event. For top-level types (types not bound by any other type except namespace) like class, interface, struct and
+enum you can only use public and internal access modifiers with the same meaning as described above. In fact
+other access modifiers don’t make sense to these types. Finally you can not apply access modifiers to namespaces.\\
+
+\textbf{Properties}\\
+
+You must be wondering if we declare all the fields in our class as private, how can we assign values to them
+through their reference as we did in the Student class before? The answer is through Properties. C\# is the first
+language to provide the support of defining properties in the language core.\\
+
+In traditional languages like Java and C++, for accessing the private fields of a class, public methods called getters
+(to retrieve the value) and setters (to assign the value) were defined like if we have a private field name
+private string name;
+then, the getters and setters would be like
+
+\begin{lstlisting}
+    // getter to name field
+    public string GetName()
+    {
+        return name;
+    }
+    // setter to name field
+    public void SetName(string theName)
+    {
+        name = theName;
+    }    
+\end{lstlisting}
+
+Using these we could restrict the access to a particular member. For example we can opt to only define the getter
+for the totalMarks field to make it read only.
+
+\begin{lstlisting}
+    private int totalMarks;
+    public int GetTotalMarks()
+    {
+        return totalMarks;
+    }    
+\end{lstlisting}
+
+Hence outside the class, one can only read the value of totalMarks and can not modify it. You can also decide to
+check some condition before assigning a value to your field
+
+\begin{lstlisting}
+    private int marksOfMaths;
+    public void SetMarksOfMaths(int marks)
+    {
+        if(marks >= 0 && marks <=100)
+        {
+            marksOfMaths = marks;
+        }
+        else
+        {
+            marksOfMaths = 0;
+            // or throw some exception informing user marks out of range
+        }
+    }        
+\end{lstlisting}
+
+This procedure gives you a lot of control over how fields of your classes should be accessed and dealt in a program.
+But, the problem is this you need to define two methods and have to prefix the name of your fields with Get or Set.
+C\# provides the built in support for these getters and setters in the form of properties. Properties are context
+sensitive constructs used to read, write or compute private fields of class and to achieve control over how the fields
+can be accessed.\\
+
+\textbf{Using Properties}\\
+
+The general Syntax for Properties is
+
+\begin{lstlisting}
+    <access modifier> <data type> <name of property>
+    {
+        get
+        {
+            // some optional statements
+            return <some private field>;
+        }
+        set
+        {
+            // some optional statements;
+            <some private field> = value;
+        }
+    }    
+\end{lstlisting}
+
+Didn’t understand it? No problem. Let’s clarify it with an example: we have a private field name
+
+\begin{lstlisting}
+    private string name;    
+\end{lstlisting}
+
+We decide to define a property for this providing both getters and setters. We will simply write
+
+\begin{lstlisting}
+    public string Name
+    {
+        get
+        {
+            return name;
+        }
+        set
+        {
+            name = value;
+        }
+    }        
+\end{lstlisting}
+
+We defined a property called ’Name’ and provided both a getter and a setter in the form of get { } and set { } blocks.
+Note that we called our property ’Name’ which is accessing the private field ’name’. It is becoming convention to
+name the property the same as the corresponding field but with first letter in uppercase (for name->Name, for
+percentage->Percentage). As properties are accessors to certain fields, they are mostly marked as public while the
+corresponding field is (and should be) mostly private. Finally note in the set { } block, we wrote
+
+\begin{lstlisting}
+    name = value;    
+\end{lstlisting}
+
+Here, value is a keyword and contains the value passed when a property is called. In our program we will use our
+property as
+
+\begin{lstlisting}
+    Student theStudent = new Student();
+    theStudent.Name = "Sanfy";
+    string myName = theString.Name;
+    theStudent.name = "Someone not Sanfy"; // error        
+\end{lstlisting}
+
+While defining properties, we said properties are context sensitive. When we write
+
+\begin{lstlisting}
+    theStudent.Name = "Sanfy";    
+\end{lstlisting}
+
+The compiler sees that the property Name is on the left hand side of assignment operator, so it will call the set { }
+block of the properties passing "Sanfy" as a value (which is a keyword). In the next line when we write
+
+\begin{lstlisting}
+    string myName = theString.Name;    
+\end{lstlisting}
+
+the compiler now sees that the property Name is on the right hand side of the assignment operator, hence it will call
+the get { } block of property Name which will return the contents of the private field name ("Sanfy" in this case, as
+we assigned in line 2) which will be stored in the local string variable name. Hence, when compiler finds the use of
+a property, it checks in which context it is called and takes appropriate action with respect to the context.
+
+The last line
+
+\begin{lstlisting}
+    theStudent.name = "Someone not Faraz"; // error    
+\end{lstlisting}
+
+will generate a compile time error (if called outside the Student class) as the name field is declared private in the
+declaration of class.\\
+
+You can give the definition of either of get { } or set { } block. If you miss one of these, and user tries to call it,
+he/she will get compile time error. For example the Length property in String class is read only; that is, the
+implementers have only given the definition of get { } block. You can write statements in the get { }, set { } blocks
+as you do in methods.
+
+\begin{lstlisting}
+    private int marksOfMaths;
+    public int MarksOfMaths
+    {
+        set
+        {
+            if(value >= 0 && value<=100)
+            {
+            marksOfMaths = value;
+            }
+            else
+            {
+            marksOfMaths = 0;
+            // or throw some exception informing user marks out of range
+            }
+        }
+    }
+        
+\end{lstlisting}
+
+Precautions when using properties
+
+\begin{itemize}
+    \item  Properties don’t have argument lists; set, get and value are keywords in C\#
+    \item  The data type of value is the same as the type of property you declared when declaring the property
+    \item  ALWAYS use proper curly brackets { } and proper indentation while using properties.
+    \item  DON’T try to write the set { } or get { } block in a single line
+    \item  UNLESS your property only assigns and retrieve values from the private fields like\\
+    get { return name; }\\
+    set { name = value; }
+\end{itemize}
+
+Each object has a reference this which points to itself. Suppose in some method call, our object needs to pass itself,
+what would we do? Suppose in our class Student, we have a method Store() that stores the information of Student
+on the disk. In this method, we called another method Save() of FileSystem class which takes the object to store as
+its parameter.
+
+\begin{lstlisting}
+    class Student
+    {
+        string name = "Some Student";
+        int age;
+        public void Store()
+        {
+            FileSystem fs = new FileSystem();
+            fs.save(this);
+        }
+    }    
+\end{lstlisting}
+
+We passed this as a parameter to the method Save() which points to the object itself.
+
+\begin{lstlisting}
+    class Test
+    {
+        public static void Main()
+        {
+            Student theStudent = new Student();
+            theStudent.Store();
+        }
+    }
+        
+\end{lstlisting}
+
+Here, when Store() is called, the reference theStudent will be passed as a parameter to the Save() method in Store().
+Conventionally, the parameters to constructors and other methods are named the same as the name of the fields
+they refer to and are distinguished only by using this reference.
+
+\begin{lstlisting}
+    class Student
+    {
+        private string name;
+        private int age;
+        public Student(string name, int age)
+        {
+            this.name = name;
+            this.age = age;
+        }
+    }
+        
+\end{lstlisting}
+
+Here in the constructor when we use name or age, we actually get the variables passed in the method which
+overshadow the instance members (fields) with same name. Hence, to use our fields, we had to use this to
+distinguish our instance members (fields) with the members passed through the parameters.
+
+This is an extremely useful, widely and commonly used construct. I recommend you practice with "this" for some
+time until you feel comfortable with it.

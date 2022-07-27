@@ -1,0 +1,165 @@
+\section{Arrays in C\#}
+
+\textbf{Array Declaration}\\
+
+An Array is a collection of values of a similar data type. Technically, C\# arrays are a reference type. Each array in
+C\# is an object and is inherited from the System.Array class. Arrays are declared as:
+
+\begin{lstlisting}
+    <data type> [] <identifier> = new <data type>[<size of array>];    
+\end{lstlisting}
+
+Let's define an array of type int to hold 10 integers.
+
+\begin{lstlisting}
+    int [] integers = new int[10];    
+\end{lstlisting}
+
+The size of an array is fixed and must be defined before using it. However, you can use variables to define the size
+of the array:
+
+\begin{lstlisting}
+    int size = 10;
+    int [] integers = new int[size];        
+\end{lstlisting}
+
+You can optionally do declaration and initialization in separate steps:
+
+\begin{lstlisting}
+    int [] integers;
+    integers = new int[10];        
+\end{lstlisting}
+
+It is also possible to define arrays using the values it will hold by enclosing values in curly brackets and separating
+individual values with a comma:
+
+\begin{lstlisting}
+    int [] integers = {1, 2, 3, 4, 5};    
+\end{lstlisting}
+
+This will create an array of size 5, whose successive values will be 1, 2, 3, 4 and 5.\\
+
+\textbf{Accessing the values stored in an array}\\
+
+To access the values in an Array, we use the indexing operator [int index]. We do this by passing an int to indicate
+which particular index value we wish to access. It’s important to note that index values in C\# start from 0. So if an
+array contains 5 elements, the first element would be at index 0, the second at index 1 and the last (fifth) at index 4.
+
+The following lines demonstrate how to access the 3rd element of an array:
+
+\begin{lstlisting}
+    int [] intArray = {5, 10, 15, 20};
+    int j = intArray[2];        
+\end{lstlisting}
+
+Let’s make a program that uses an integral array.
+
+\begin{lstlisting}
+    // demonstrates the use of arrays in C#
+    static void Main()
+    {
+        // declaring and initializing an array of type integer
+        int [] integers = {3, 7, 2, 14, 65};
+        // iterating through the array and printing each element
+        for(int i=0; i<5; i++)
+        {
+            Console.WriteLine(integers[i]);
+        }
+    }        
+\end{lstlisting}
+
+Here we used the for loop to iterate through the array and the Console.WriteLine() method to print each individual
+element of the array. Note how the indexing operator [] is used.
+
+The above program is quite simple and efficient, but we had to hard-code the size of the array in the for loop. As we
+mentioned earlier, arrays in C\# are reference type and are a sub-class of the System.Array Class. This class has lot
+of useful properties and methods that can be applied to any instance of an array that we define. Properties are very
+much like the combination of getter and setter methods in common Object Oriented languages. Properties are
+context sensitive, which means that the compiler can un-ambiguously identify whether it should call the getter or
+setter in any given context. We will discuss properties in detail in the coming lessons. System.Array has a very
+useful read-only property named Length that can be used to find the length, or size, of an array programmatically.\\
+
+Using the Length property, the for loop in the above program can be written as:
+
+\begin{lstlisting}
+    for(int i=0; i<integers.Length; i++)
+    {
+        Console.WriteLine(integers[i]);
+    }    
+\end{lstlisting}
+
+This version of looping is much more flexible and can be applied to an array of any size and of any data-type.\\
+
+Now we can understand the usual description of Main(). Main is usually declared as:
+
+\begin{lstlisting}
+    static void Main(string [] args)    
+\end{lstlisting}
+
+The command line arguments that we pass when executing our program are available in our programs through an
+array of type string identified by the args string array.\\
+
+\textbf{foreach Loop}\\
+
+There is another type of loop that is very simple and useful to iterate through arrays and collections. This is the
+foreach loop. The basic structure of a foreach loop is:
+
+\begin{lstlisting}
+    foreach(<type of elements in collection> <identifier> in <array or collection>)
+        <statements or block of statements>
+        
+\end{lstlisting}
+
+Let’s now make our previous program to iterate through the array with a foreach loop:
+
+\begin{lstlisting}
+    // demonstrates the use of arrays in C#
+    static void Main()
+    {
+        // declaring and initializing an array of type integer
+        int [] integers = {3, 7, 2, 14, 65};
+        // iterating through the array and printing each element
+        foreach(int i in integers)
+        {
+            Console.WriteLine(i);
+        }
+    }
+\end{lstlisting}
+
+Simple and more readable, isn’t it? In the statement:
+
+\begin{lstlisting}
+    foreach(int i in integers)    
+\end{lstlisting}
+
+We specified the type of elements in the collection (int in our case). We declared the variable (i) to be used to hold
+the individual values of the array ’integers’ in each iteration.\\
+
+Important points to note here:
+
+\begin{itemize}
+    \item The variable used to hold the individual elements of array in each iteration (i in the above example) is read
+    only. You can’t change the elements in the array through it. This means that foreach will only allow you to
+    iterate through the array or collection and not to change the contents of it. If you wish to perform some
+    work on the array to change the individual elements, you should use a for loop.
+    \item foreach can be used to iterate through arrays or collections. By a collection, we mean any class, struct or
+    interface that implements the IEnumerable interface. (Just go through this point and re-read it once we
+    complete the lesson describing classes and interfaces)
+    \item The string class is also a collection of characters (implements IEnumerable interface and returns char
+    value in Current property). The following code example demonstrates this and prints all the characters in
+    the string.
+     
+\end{itemize}
+
+\begin{lstlisting}
+    static void Main()
+    {
+        string name = "Sanfy In";
+        foreach(char ch in name)
+        {
+            Console.WriteLine(ch);
+        }
+    } 
+\end{lstlisting}
+
+This will print each character of the name in a separate line.
